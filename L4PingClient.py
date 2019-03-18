@@ -1,12 +1,11 @@
+from __future__ import print_function
+
 import socket
 import time
 
 # Create a UDP socket
 clientsocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
 server_address = ('localhost', 10000)
-message = b'This is the message.  It will be repeated.'
-
 
 for i in range(1, 4):
     # Send data
@@ -21,4 +20,4 @@ for i in range(1, 4):
     if received_data == str(i):
         end_time = time.time()
         elapsed_time = end_time - start_time
-        print("Complete in: ", elapsed_time)
+        print("Completed in: ", elapsed_time)

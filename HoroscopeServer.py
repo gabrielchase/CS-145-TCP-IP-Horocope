@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import math
 import socket
 import json 
@@ -33,7 +35,7 @@ ZELLERS_DAY = {
 }
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serversocket.bind(('', 58916))
+serversocket.bind(('', 58917))
 serversocket.listen(5) # become a server socket, maximum 5 connections
 
 # Zeller's Rule
@@ -41,7 +43,7 @@ def zellers_rule(K, M, D, C):
     if (M == 11 or M == 12):
         D = D - 1
     F = K + math.floor((13 * M -1) / 5) + D + math.floor(D/4) + math.floor(C/4) - math.floor(2*C)
-    F = str(math.floor(F % 7))
+    F = str(int(math.floor(F % 7)))
     return ZELLERS_DAY[F]
 
 def get_day_of_the_week(date):
@@ -67,6 +69,10 @@ while True:
     while True:
         data = client_socket.recv(1024).decode()
         print("Received: ", data)
+
+        if data == "q":
+            # close connection
+            break
         
         day_of_the_week = get_day_of_the_week(data)
         horoscope = get_horoscope(data)
