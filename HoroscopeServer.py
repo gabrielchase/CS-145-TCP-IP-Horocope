@@ -64,19 +64,20 @@ def get_horoscope(date):
             else:
                 return HOROSCOPES_JSON[counter-1]
 
-while True:
-    client_socket, address = serversocket.accept()
+if __name__ == "__main__":
     while True:
-        data = client_socket.recv(1024).decode()
-        print("Received: ", data)
+        client_socket, address = serversocket.accept()
+        while True:
+            data = client_socket.recv(1024).decode()
 
-        if data == "q":
-            # close connection
-            break
-        
-        day_of_the_week = get_day_of_the_week(data)
-        horoscope = get_horoscope(data)
-        
-        result = '{};{};{}'.format(day_of_the_week, horoscope["symbol"], horoscope["reading"])
-        print(result)
-        client_socket.send(result.encode())
+            if data == "q":
+                # close connection
+                serversocket.close()
+                print("Closed connection")
+            else: 
+                day_of_the_week = get_day_of_the_week(data)
+                horoscope = get_horoscope(data)
+                
+                result = '{};{};{}'.format(day_of_the_week, horoscope["symbol"], horoscope["reading"])
+                print(result)
+                client_socket.send(result.encode())
