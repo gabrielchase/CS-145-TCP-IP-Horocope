@@ -21,4 +21,7 @@ if __name__ == "__main__":
         if received_data == str(i):
             end_time = time.time()
             elapsed_time = end_time - start_time
-            print("Completed in: ", elapsed_time)
+            if elapsed_time > 1:
+                print("LOST")
+            else:
+                print("Completed in: ", elapsed_time)

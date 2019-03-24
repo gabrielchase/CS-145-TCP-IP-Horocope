@@ -11,7 +11,6 @@ serversocket.bind(server_address)
 if __name__ == "__main__":
     while True:
         print('\nwaiting to receive message')
-        start = time.time()
         data, address = serversocket.recvfrom(4096)
         print("Received ", data)
 
